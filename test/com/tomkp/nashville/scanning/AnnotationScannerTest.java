@@ -24,7 +24,7 @@ public class AnnotationScannerTest {
         classes.add(TestFixture1.class);
         List<AnnotatedClasses> annotatedClasses = annotationScanner.scanClasses(classes, Fixture.class);
         assertEquals(TestFixture1.class, annotatedClasses.get(0).getClas());
-        assertEquals("@com.tomkp.nashville.annotations.Fixture(value=)", annotatedClasses.get(0).getAnnotation().toString());
+        assertEquals("@com.tomkp.nashville.annotations.Fixture(value=, lifespan=SUITE)", annotatedClasses.get(0).getAnnotation().toString());
     }
 
     @Test
