@@ -1,5 +1,7 @@
 package com.tomkp.nashville.scanning;
 
+import com.tomkp.nashville.annotations.Fixture;
+
 import java.lang.reflect.Method;
 
 public class AnnotatedMethod<A> {

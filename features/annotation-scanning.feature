@@ -1,4 +1,7 @@
+Feature: scanning for annotations
 
-Given a package 'com.tomkp.testdata.annotations'
-When I scan for 'Fixture' annotations
-Then it should find the classes 'TestFixture1, TestFixture2'
+  Scenario: package contains annotated fixtures
+
+    Given a package 'com.tomkp.testdata.annotations'
+    When I scan for 'com.tomkp.nashville.annotations.Fixture' annotations
+    Then it should find the classes 'TestFixture1, TestFixture2'

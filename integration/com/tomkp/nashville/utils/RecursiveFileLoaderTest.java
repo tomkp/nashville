@@ -1,5 +1,6 @@
-package com.tomkp.nashville.features;
+package com.tomkp.nashville.utils;
 
+import com.tomkp.nashville.utils.RecursiveFileLoader;
 import org.junit.Test;
 
 import java.io.File;
@@ -8,10 +9,10 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class FeatureFileLoaderTest {
+public class RecursiveFileLoaderTest {
 
 
-    private final FeatureFileLoader fileLoader = new FeatureFileLoader("feature");
+    private final RecursiveFileLoader fileLoader = new RecursiveFileLoader("feature");
 
 
     @Test

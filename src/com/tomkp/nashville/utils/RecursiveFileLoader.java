@@ -1,4 +1,4 @@
-package com.tomkp.nashville.features;
+package com.tomkp.nashville.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,13 +8,13 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeatureFileLoader {
+public class RecursiveFileLoader {
 
-    private static final Logger LOG = LoggerFactory.getLogger(FeatureFileLoader.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RecursiveFileLoader.class);
 
     private final String suffix;
 
-    public FeatureFileLoader(final String suffix) {
+    public RecursiveFileLoader(final String suffix) {
         this.suffix = suffix;
     }
 
