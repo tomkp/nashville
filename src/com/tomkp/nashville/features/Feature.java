@@ -12,10 +12,12 @@ public class Feature {
     private static final Logger LOG = LoggerFactory.getLogger(Feature.class);
 
     private String name;
+    private File file;
 
     private List<Scenario> scenarios = new ArrayList<Scenario>();
 
     public Feature(File file) {
+        this.file = file;
         name = file.getName();
         name = "Feature: " + name.replace("_", " ").substring(0, name.lastIndexOf("."));
     }
@@ -33,8 +35,16 @@ public class Feature {
         return name;
     }
 
+    public File getFile() {
+        return file;
+    }
+
     public void setName(String name) {
         LOG.info("set name: '{}'", name);
         this.name = name;
+    }
+
+    public String getFilePath() {
+        return file.getAbsolutePath();
     }
 }

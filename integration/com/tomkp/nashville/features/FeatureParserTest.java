@@ -25,28 +25,27 @@ public class FeatureParserTest {
         assertEquals("Feature: This is a test feature", feature.getName());
 
         assertEquals("Scenario: My first scenario", scenario.getName());
-        assertEquals(file, scenario.getFile());
+        assertEquals(file.getAbsolutePath(), scenario.getFilePath());
 
         Line line1 = lines.get(0);
         assertEquals("Given an initial state", line1.getContents());
         assertEquals(7, line1.getNumber());
-        assertEquals(file, line1.getFile());
+        assertEquals(scenario, line1.getScenario());
 
         Line line2 = lines.get(1);
         assertEquals("Then I perform an action", line2.getContents());
         assertEquals(8, line2.getNumber());
-        assertEquals(file, line2.getFile());
+        assertEquals(scenario, line2.getScenario());
 
         Line line3 = lines.get(2);
         assertEquals("And I perform a different action", line3.getContents());
         assertEquals(9, line3.getNumber());
-        assertEquals(file, line3.getFile());
-
+        assertEquals(scenario, line3.getScenario());
 
         Line line4 = lines.get(3);
         assertEquals("Then I should assert", line4.getContents());
         assertEquals(10, line4.getNumber());
-        assertEquals(file, line4.getFile());
+        assertEquals(scenario, line4.getScenario());
 
         assertEquals(4, lines.size());
     }

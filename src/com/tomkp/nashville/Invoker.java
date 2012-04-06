@@ -6,6 +6,7 @@ import com.tomkp.nashville.scanning.AnnotatedMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -35,17 +36,26 @@ public class Invoker {
 
             Method method = annotatedMethod.getMethod();
             try {
-                Object instance = instanceCache.getInstance(annotatedMethod);
+                Object instance = instanceCache.getInstance(line, annotatedMethod);
                 if (convertedParameters.isEmpty()) {
                     method.invoke(instance);
                 } else {
                     method.invoke(instance, convertedParameters.toArray());
                 }
+            } catch (InvocationTargetException e) {
+                if (e.getTargetException() instanceof AssertionError) {
+                    throw (AssertionError) e.getTargetException();
+                } else {
+                    LOG.warn("unable to invoke '{}'", new Object[]{method}, e);
+                }
+                throw new AssertionError("unable to invoke method '" + method + "'");
             } catch (Exception e) {
                 LOG.warn("unable to invoke '{}'", new Object[]{method}, e);
+                throw new AssertionError("unable to invoke '" + method + "'");
             }
         } else {
             LOG.warn("no annotated method found for '{}'", line);
+            throw new AssertionError("no annotated method found for '" + line + "'");
         }
     }
 }

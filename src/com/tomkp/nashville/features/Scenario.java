@@ -11,20 +11,21 @@ public class Scenario {
 
     private static final Logger LOG = LoggerFactory.getLogger(Scenario.class);
 
-    private File file;
+    private Feature feature;
     private String name;
     private List<Line> lines = new ArrayList<Line>();
 
 
-    public Scenario(File file, String name) {
-        this.file = file;
+    public Scenario(Feature feature, String name) {
+        this.feature = feature;
         this.name = name;
     }
 
 
-    public File getFile() {
-        return file;
+    public Feature getFeature() {
+        return feature;
     }
+
 
     public String getName() {
         return name;
@@ -37,5 +38,9 @@ public class Scenario {
     public void addLine(Line line) {
         LOG.info("add line: '{}'", line);
         lines.add(line);
+    }
+
+    public String getFilePath() {
+        return feature.getFilePath();
     }
 }

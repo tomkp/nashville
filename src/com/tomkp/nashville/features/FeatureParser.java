@@ -35,7 +35,7 @@ public class FeatureParser {
                 }
 
                 if (line.contains(Syntax.SCENARIO.getValue())) {
-                    scenario = new Scenario(file, line);
+                    scenario = new Scenario(feature, line);
                     feature.addScenario(scenario);
                 } else if (scenario != null) {
 
@@ -43,7 +43,7 @@ public class FeatureParser {
 
                         LOG.info("line: '{}'", line);
 
-                        scenario.addLine(new Line(file, lineNumber, line));
+                        scenario.addLine(new Line(scenario, lineNumber, line));
                     }
                 }
             }

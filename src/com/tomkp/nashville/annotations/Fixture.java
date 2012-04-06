@@ -12,6 +12,6 @@ public @interface Fixture {
 
     String value() default "";
 
-    Lifespan lifespan() default Lifespan.SUITE;
+    Lifespan lifespan() default Lifespan.FULL_SUITE;
 
 }

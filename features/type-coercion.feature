@@ -1,7 +1,13 @@
 Feature: coercing parameters
 
   Scenario: type is Date
+    Given a parameter '20/03/2001'
+    When I run the coercer
 
-    Given a directory 'features'
-    When I run the feature file loader
-    Then it should find the features 'annotation-scanning.feature, test-feature2'
+  Scenario: type is a Class
+    Given a parameter 'java.lang.String'
+    When I run the coercerX
+
+  Scenario: type is a Boolean
+    Given a parameter 'java.lang.Boolean'
+    When I run the coercerY

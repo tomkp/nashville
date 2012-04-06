@@ -9,18 +9,23 @@ import com.tomkp.nashville.features.Line;
 import com.tomkp.nashville.features.Scenario;
 import com.tomkp.nashville.utils.RecursiveFileLoader;
 import com.tomkp.nashville.scanning.*;
+import junit.framework.TestSuite;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.List;
 
-public class MainSuite {
+public class MainSuite extends TestSuite {
 
     private static final Logger LOG = LoggerFactory.getLogger(MainSuite.class);
 
     @SuppressWarnings("unchecked")
-    public static void main(String[] args) {
+
+    public static TestSuite suite() {
+
+        TestSuite testSuite = new TestSuite();
+
 
         StepMatcher stepMatcher = new StepMatcher();
 
@@ -42,19 +47,35 @@ public class MainSuite {
         FeatureParser featureParser = new FeatureParser();
         for (File featureFile : features) {
             Feature feature = featureParser.parse(featureFile);
+
             LOG.info("feature: '{}'", feature);
+            TestSuite featureSuite = new TestSuite();
+            featureSuite.setName(feature.getName());
+            testSuite.addTest(featureSuite);
+
             List<Scenario> scenarios = feature.getScenarios();
             for (Scenario scenario : scenarios) {
+
                 LOG.info("scenario: '{}'", scenario);
+                TestSuite scenarioSuite = new TestSuite();
+                scenarioSuite.setName(scenario.getName());
+                featureSuite.addTest(scenarioSuite);
+
                 List<Line> lines = scenario.getLines();
                 for (Line line : lines) {
                     LOG.info("line: '{}'", line);
 
                     Invokable invokable = stepMatcher.match(line);
-                    invoker.invoke(invokable);
+                    NashvilleTest nashvilleTest = new NashvilleTest(invokable, invoker);
+                    LOG.info("add new test: '{}'", nashvilleTest.getName());
+                    scenarioSuite.addTest(nashvilleTest);
                 }
             }
         }
 
+        return testSuite;
+
     }
+
+
 }

@@ -2,7 +2,7 @@ package com.tomkp.nashville.annotations;
 
 public enum Lifespan {
 
-    SUITE,
+    FULL_SUITE,
     FEATURE,
     SCENARIO
 
