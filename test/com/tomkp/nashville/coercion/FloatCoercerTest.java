@@ -14,25 +14,25 @@ public class FloatCoercerTest {
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         coercer = new FloatCoercer();
     }
     
 
     @Test
-    public void emptyStringDefaultsToZero() throws Exception {
+    public void emptyStringDefaultsToZero() {
         assertEquals(0F, coercer.coerce("", null), 0);
     }
 
     
     @Test
-    public void nullDefaultsToZero() throws Exception {
+    public void nullDefaultsToZero() {
         assertEquals(0F, coercer.coerce(null, null), 0);
     }
 
 
      @Test
-    public void simpleConversion() throws Exception {
+    public void simpleConversion() {
         assertEquals(17F, coercer.coerce("17", null), 0);
     }
 }

@@ -13,37 +13,37 @@ public class BooleanCoercerTest {
     private BooleanCoercer booleanCoercer;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         booleanCoercer = new BooleanCoercer();
     }
 
     @Test
-    public void emptyStringReturnsFalse() throws Exception {
+    public void emptyStringReturnsFalse() {
         assertEquals(false, booleanCoercer.coerce("", null));
     }
 
     @Test
-    public void nullReturnsFalse() throws Exception {
+    public void nullReturnsFalse() {
         assertEquals(false, booleanCoercer.coerce(null, null));
     }
 
     @Test
-    public void falseReturnsFalse() throws Exception {
+    public void falseReturnsFalse() {
         assertEquals(false, booleanCoercer.coerce("false", null));
     }
 
     @Test
-    public void falseCaptialisedReturnsFalse() throws Exception {
+    public void falseCaptialisedReturnsFalse() {
         assertEquals(false, booleanCoercer.coerce("FALSE", null));
     }
     
     @Test
-    public void trueReturnsTrue() throws Exception {
+    public void trueReturnsTrue() {
         assertEquals(true, booleanCoercer.coerce("true", null));
     }
 
     @Test
-    public void trueCaptialisedReturnsTrue() throws Exception {
+    public void trueCaptialisedReturnsTrue() {
         assertEquals(true, booleanCoercer.coerce("TRUE", null));
     }
 }

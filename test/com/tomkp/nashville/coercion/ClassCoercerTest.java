@@ -32,9 +32,17 @@ public class ClassCoercerTest {
     }
 
 
+    @Test(expected = RuntimeException.class)
+    public void badClassThrowsRuntimeException() {
+        classCoercer.coerce("this.class.does.not.Exist", null);
+    }
+
+
     @Test
     public void stringReturnsStringClass() {
         Class clas = classCoercer.coerce("java.lang.String", null);
         assertEquals("java.lang.String", clas.getName());
     }
+
+
 }
