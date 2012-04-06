@@ -15,7 +15,7 @@ public class DateCoercer implements Coercer<Date> {
 
     private static final SimpleDateFormat DEFAULT_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     private static final SimpleDateFormat DAY_MONTH_YEAR_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
-    private static final  SimpleDateFormat SINGLE_YEAR_FORMAT = new SimpleDateFormat("yyyy");
+    private static final SimpleDateFormat SINGLE_YEAR_FORMAT = new SimpleDateFormat("yyyy");
 
     private static final List<SimpleDateFormat> DEFAULT_DATE_FORMATS = Arrays.asList(DEFAULT_FORMAT, DAY_MONTH_YEAR_FORMAT, SINGLE_YEAR_FORMAT);
 
@@ -26,19 +26,18 @@ public class DateCoercer implements Coercer<Date> {
             try {
                 simpleDateFormats = Arrays.asList(new SimpleDateFormat(format));
             } catch (IllegalArgumentException e) {
-                return null;
+                throw new RuntimeException("error creating date format '" + format + "'", e);
             }
         }
         for (SimpleDateFormat dateFormat : simpleDateFormats) {
             try {
                 LOG.info("parse date with format: '{}'", dateFormat.toPattern());
                 return dateFormat.parse(value);
-            } catch (Exception ignored) { }
+            } catch (Exception ignored) {
+            }
         }
-        LOG.warn("error parsing date '{}'", value);
-        return null;
+        throw new RuntimeException("error parsing date '" + value + "' with format '" + format + "'");
     }
-
 
 
 }

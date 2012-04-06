@@ -12,9 +12,12 @@ public class FileCoercer implements Coercer<File> {
     @Override
     public File coerce(String value, String format) {
         LOG.info("coerce '{}'", value);
-        File file = new File(value);
-        LOG.info("file '{}' {}", file.getAbsolutePath(), file.exists()?"exists":"does not exist");
-        return file;
+        if (value != null && !value.isEmpty()) {
+            File file = new File(value);
+            LOG.info("file '{}' {}", file.getAbsolutePath(), file.exists() ? "exists" : "does not exist");
+            return file;
+        }
+        throw new RuntimeException("unable to coerce '" + value + "'to File");
     }
 
 }

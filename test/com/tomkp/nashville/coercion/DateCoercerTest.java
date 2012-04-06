@@ -24,29 +24,30 @@ public class DateCoercerTest {
         dateCoercer = new DateCoercer();
     }
 
-    @Test
-    public void nullReturnsNull() throws Exception {
-        Date date = dateCoercer.coerce(null, null);
-        assertNull(date);
+
+    @Test(expected = RuntimeException.class)
+    public void nullValueThrowsRuntimeException() throws Exception {
+        dateCoercer.coerce(null, null);
     }
 
-    @Test
-    public void emptyStringReturnsNull() throws Exception {
-        Date date = dateCoercer.coerce("", null);
-        assertNull(date);
+
+    @Test(expected = RuntimeException.class)
+    public void emptyStringThrowsRuntimeException() throws Exception {
+        dateCoercer.coerce("", null);
     }
 
-    @Test
-    public void invalidFormatReturnsNull() throws Exception {
-        Date date = dateCoercer.coerce("24/06/2011", "this date format is invalid");
-        assertNull(date);
+
+    @Test(expected = RuntimeException.class)
+    public void invalidFormatThrowsRuntimeException() throws Exception {
+        dateCoercer.coerce("24/06/2011", "this date format is invalid");
     }
 
-    @Test
-    public void invalidDateReturnsNull() throws Exception {
-        Date date = dateCoercer.coerce("this date is invalid", "dd/MM/yyyy");
-        assertNull(date);
+
+    @Test(expected = RuntimeException.class)
+    public void invalidDateThrowsRuntimeException() throws Exception {
+        dateCoercer.coerce("this date is invalid", "dd/MM/yyyy");
     }
+
 
     @Test
     public void defaultFormatIsIso8601() throws Exception {

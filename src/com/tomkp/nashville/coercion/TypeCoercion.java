@@ -33,7 +33,7 @@ public class TypeCoercion {
     public static Object coerce(Class clazz, String value, String format) {
         LOG.info("coerce '{}' to a '{}' with format: '{}'", new Object[] {value, clazz.getSimpleName(), format});
         Coercer coercer = coercers.get(clazz);
-        Object coercedValue = null;
+        Object coercedValue;
         if (coercer != null) {
             coercedValue = coercer.coerce(value, format);
             LOG.info("coerced value: '{}'", coercedValue);

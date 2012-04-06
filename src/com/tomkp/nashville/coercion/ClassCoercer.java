@@ -14,10 +14,10 @@ public class ClassCoercer implements Coercer<Class> {
             try {
                 return Class.forName(value);
             } catch (ClassNotFoundException e) {
-                throw new RuntimeException("unable to coerce to Class", e);
+                throw new RuntimeException("unable to coerce '" + value + "'to Class", e);
             }
         }
-        return null;
+        throw new RuntimeException("unable to coerce '" + value + "'to Class");
     }
 
 

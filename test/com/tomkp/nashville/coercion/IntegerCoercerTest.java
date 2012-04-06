@@ -1,6 +1,5 @@
 package com.tomkp.nashville.coercion;
 
-import com.tomkp.nashville.coercion.IntegerCoercer;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,7 +30,7 @@ public class IntegerCoercerTest {
     }
 
 
-     @Test
+    @Test
     public void simpleConversion() throws Exception {
         assertEquals(17, coercer.coerce("17", null), 0);
     }
