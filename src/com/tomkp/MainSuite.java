@@ -15,9 +15,9 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.util.List;
 
-public class Main {
+public class MainSuite {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Main.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MainSuite.class);
 
     @SuppressWarnings("unchecked")
     public static void main(String[] args) {
