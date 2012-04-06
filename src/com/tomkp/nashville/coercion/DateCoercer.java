@@ -1,6 +1,8 @@
 package com.tomkp.nashville.coercion;
 
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -9,7 +11,7 @@ import java.util.List;
 
 public class DateCoercer implements Coercer<Date> {
 
-    private static final Logger LOG = Logger.getLogger(DateCoercer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DateCoercer.class);
 
     private static final SimpleDateFormat DEFAULT_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     private static final SimpleDateFormat DAY_MONTH_YEAR_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
@@ -29,11 +31,11 @@ public class DateCoercer implements Coercer<Date> {
         }
         for (SimpleDateFormat dateFormat : simpleDateFormats) {
             try {
-                if (LOG.isDebugEnabled()) LOG.debug("parse date with format: '" + dateFormat.toPattern() + "'");
+                LOG.info("parse date with format: '{}'", dateFormat.toPattern());
                 return dateFormat.parse(value);
             } catch (Exception ignored) { }
         }
-        LOG.warn("error parsing date '" + value);
+        LOG.warn("error parsing date '{}'", value);
         return null;
     }
 

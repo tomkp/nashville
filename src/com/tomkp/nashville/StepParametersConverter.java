@@ -41,7 +41,7 @@ public class StepParametersConverter {
                 LOG.info("coerced: '{}' to a  '{}'", coerced, coerced.getClass().getSimpleName());
                 convertedParameters.add(coerced);
             } catch (Exception e) {
-                throw new AssertionError("error coercing parameter '" + param + "'");
+                throw new RuntimeException("error coercing parameter '" + param + "'");
             }
         }
 

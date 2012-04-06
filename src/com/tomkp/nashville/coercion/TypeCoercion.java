@@ -1,6 +1,8 @@
 package com.tomkp.nashville.coercion;
 
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.Date;
@@ -10,7 +12,7 @@ import java.util.Map;
 
 public class TypeCoercion {
 
-    private static final Logger LOG = Logger.getLogger(TypeCoercion.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TypeCoercion.class);
 
     private static Map<Class, Coercer> coercers = new HashMap<Class, Coercer>();
 
@@ -29,15 +31,15 @@ public class TypeCoercion {
     }
 
     public static Object coerce(Class clazz, String value, String format) {
-        if (LOG.isDebugEnabled())
-            LOG.debug("coerce '" + value + "' to a '" + clazz.getSimpleName() + "' with format: '" + format + "'");
+        LOG.info("coerce '{}' to a '{}' with format: '{}'", new Object[] {value, clazz.getSimpleName(), format});
         Coercer coercer = coercers.get(clazz);
         Object coercedValue = null;
         if (coercer != null) {
             coercedValue = coercer.coerce(value, format);
-            if (LOG.isDebugEnabled()) LOG.debug("coerced value: '" + coercedValue + "'");
+            LOG.info("coerced value: '{}'", coercedValue);
         } else {
-            if (LOG.isDebugEnabled()) LOG.debug("no coercer found for '" + clazz.getName() + "'");
+            LOG.warn("no coercer found for '{}'", clazz.getName());
+            throw new RuntimeException("no coercer found for '" + clazz.getName() + "'");
         }
         return coercedValue;
     }
