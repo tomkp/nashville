@@ -4,6 +4,8 @@ import com.tomkp.nashville.Invokable;
 import com.tomkp.nashville.Invoker;
 import junit.framework.TestCase;
 
+import java.util.Date;
+
 public class NashvilleTest extends TestCase {
 
 
@@ -18,6 +20,7 @@ public class NashvilleTest extends TestCase {
 
 
     public void test() {
+        System.out.println();
         System.out.println(invokable.getLine());
         invoker.invoke(invokable);
         assertTrue(true);

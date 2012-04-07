@@ -6,8 +6,8 @@ Feature: coercing parameters
 
   Scenario: type is a Class
     Given a parameter 'java.lang.String'
-    When I run the coercerX
+    When I run the coercer
 
   Scenario: type is a Boolean
     Given a parameter 'java.lang.Boolean'
-    When I run the coercerY
+    When I run the coercer
