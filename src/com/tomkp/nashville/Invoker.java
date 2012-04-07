@@ -1,6 +1,7 @@
 package com.tomkp.nashville;
 
 import com.tomkp.nashville.annotations.Step;
+import com.tomkp.nashville.coercion.ParametersConverter;
 import com.tomkp.nashville.features.Line;
 import com.tomkp.nashville.scanning.AnnotatedMethod;
 import org.slf4j.Logger;
@@ -15,12 +16,12 @@ public class Invoker {
     private static final Logger LOG = LoggerFactory.getLogger(Invoker.class);
 
 
-    private StepParametersConverter stepParametersConverter;
+    private ParametersConverter parametersConverter;
     private FixtureInstanceCache instanceCache;
 
 
-    public Invoker(StepParametersConverter stepParametersConverter, FixtureInstanceCache instanceCache) {
-        this.stepParametersConverter = stepParametersConverter;
+    public Invoker(ParametersConverter parametersConverter, FixtureInstanceCache instanceCache) {
+        this.parametersConverter = parametersConverter;
         this.instanceCache = instanceCache;
     }
 
@@ -31,24 +32,35 @@ public class Invoker {
         if (annotatedMethod != null) {
             List<String> methodParameters = invokable.getMethodParameters();
             LOG.info("methodParameters: '{}'", methodParameters);
-            List<Object> convertedParameters = stepParametersConverter.convertParameters(annotatedMethod, methodParameters);
+            Method method = annotatedMethod.getMethod();
+            Step step = annotatedMethod.getAnnotation();
+            String[] formats = step.formats();
+            Class<?>[] parameterTypes = method.getParameterTypes();
+            List<Object> convertedParameters = parametersConverter.convertParameters(parameterTypes, formats, methodParameters);
             LOG.info("converted convertedParameters: '{}'", convertedParameters);
 
-            Method method = annotatedMethod.getMethod();
+            //Method method = annotatedMethod.getMethod();
             try {
-                Object instance = instanceCache.getInstance(line, annotatedMethod);
+                Object instance = instanceCache.getInstance(line, annotatedMethod.getClas());
+                System.out.println();
+                System.out.println(invokable.getLine());
                 if (convertedParameters.isEmpty()) {
                     method.invoke(instance);
                 } else {
                     method.invoke(instance, convertedParameters.toArray());
                 }
             } catch (InvocationTargetException e) {
+
+                //e.printStackTrace();
+
                 if (e.getTargetException() instanceof AssertionError) {
                     throw (AssertionError) e.getTargetException();
-                } else {
-                    LOG.warn("unable to invoke '{}'", new Object[]{method}, e);
+//                } else {
+//                    LOG.warn("unable to invoke '{}'", new Object[]{method}, e);
                 }
-                throw new AssertionError("unable to invoke method '" + method + "'");
+
+                //throw new AssertionError("unable to invoke method '" + method + "' " + e.getMessage());
+                throw new AssertionError(e.getTargetException());
             } catch (Exception e) {
                 LOG.warn("unable to invoke '{}'", new Object[]{method}, e);
                 throw new AssertionError("unable to invoke '" + method + "'");

@@ -25,8 +25,8 @@ public class FixtureInstanceCache {
 
 
     @SuppressWarnings("unchecked")
-    public Object getInstance(Line line, AnnotatedMethod<Step> annotatedMethod) throws InstantiationException, IllegalAccessException {
-        Class clas = annotatedMethod.getClas();
+    public Object getInstance(Line line, Class clas) throws InstantiationException, IllegalAccessException {
+        //Class clas = annotatedMethod.getClas();
         Fixture annotation = (Fixture)clas.getAnnotation(Fixture.class);
         LOG.info("annotation: '{}'", annotation);
 

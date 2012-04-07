@@ -38,7 +38,7 @@ public class StepMatcher {
                 LOG.info("'{}' matches '{}'", annotatedMethod, contents);
 
                 int count = matcher.groupCount();
-                for (int i = 0; i <= count; i++) {
+                for (int i = 1; i <= count; i++) {
                     String group = matcher.group(i);
                     methodParameters.add(group);
                 }

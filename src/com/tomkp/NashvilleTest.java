@@ -20,8 +20,6 @@ public class NashvilleTest extends TestCase {
 
 
     public void test() {
-        System.out.println();
-        System.out.println(invokable.getLine());
         invoker.invoke(invokable);
         assertTrue(true);
     }

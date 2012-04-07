@@ -18,7 +18,7 @@ public class AnnotationScanner {
 
 
     public List<AnnotatedClasses> scanClasses(List<Class> classes, Class<? extends Annotation>... annotationClasses) {
-        List<com.tomkp.nashville.scanning.AnnotatedClasses> annotatedClasses = new ArrayList<com.tomkp.nashville.scanning.AnnotatedClasses>();
+        List<AnnotatedClasses> annotatedClasses = new ArrayList<com.tomkp.nashville.scanning.AnnotatedClasses>();
         for (Class clas : classes) {
             for (Class<? extends Annotation> annotationClass : annotationClasses) {
                 if (clas.isAnnotationPresent(annotationClass)) {

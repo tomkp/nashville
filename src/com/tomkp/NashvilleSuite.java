@@ -3,6 +3,7 @@ package com.tomkp;
 import com.tomkp.nashville.*;
 import com.tomkp.nashville.annotations.Fixture;
 import com.tomkp.nashville.annotations.Step;
+import com.tomkp.nashville.coercion.ParametersConverter;
 import com.tomkp.nashville.features.Feature;
 import com.tomkp.nashville.features.FeatureParser;
 import com.tomkp.nashville.features.Line;
@@ -39,7 +40,7 @@ public class NashvilleSuite extends TestSuite {
             }
         }
 
-        Invoker invoker = new Invoker(new StepParametersConverter(), new FixtureInstanceCache());
+        Invoker invoker = new Invoker(new ParametersConverter(), new FixtureInstanceCache());
 
         RecursiveFileLoader recursiveFileLoader = new RecursiveFileLoader("feature");
         File featuresDirectory = new File("features");

@@ -43,7 +43,9 @@ public class ClassesFixture {
     public void scanForAnnotations(Class<? extends Annotation> annotation) {
         LOG.info("annotation: '{}'", annotation);
         classes = new PackageExplorer().getClasses(packageName);
+        LOG.info("classes: '{}'", classes);
         annotatedClasses = new AnnotationScanner().scanClasses(classes, annotation);
+        LOG.info("annotated classes: '{}'", annotatedClasses);
     }
 
 
@@ -51,10 +53,10 @@ public class ClassesFixture {
     public void findClasses(List<String> expectedClasses) {
         LOG.info("compare expected classes '{}' and actual classes '{}'", expectedClasses, classes);
         int index = 0;
+        assertEquals(expectedClasses.size(), classes.size());
         for (String aClass : expectedClasses) {
             assertEquals(aClass, classes.get(index++).getSimpleName());
         }
-        assertEquals(expectedClasses.size(), classes.size());
     }
 
 
@@ -63,10 +65,10 @@ public class ClassesFixture {
         LOG.info("compare expected classes '{}' and actual annotated classes '{}'", expectedClasses, annotatedClasses);
         try {
             int index = 0;
+            assertEquals(expectedClasses.size(), annotatedClasses.size());
             for (String aClass : expectedClasses) {
                 assertEquals(aClass, annotatedClasses.get(index++).getClas().getSimpleName());
             }
-            assertEquals(expectedClasses.size(), classes.size());
         } catch (Exception e) {
             e.printStackTrace();
         }

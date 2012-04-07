@@ -18,20 +18,6 @@ public class CoercionFixture {
 
     private static final Logger LOG = LoggerFactory.getLogger(CoercionFixture.class);
 
-    private String packageName;
-    private List<Class> classes;
-
-
-    @Step("Given a package '(.*)'")
-    public void selectPackage(String packageName) {
-        LOG.info("packageName: '{}'", packageName);
-        this.packageName = packageName;
-    }
-
-    @Step("Given a directory '(.*)'")
-    public void selectDirectory(File directory) {
-        LOG.info("directory: '{}'", directory);
-    }
 
     @Step("Given a parameter '(.*)'")
     public void withParameter(String parameter) {
@@ -44,38 +30,6 @@ public class CoercionFixture {
     }
 
 
-    @Step("When I run the feature file loader")
-    public void fileLoader() {
-        LOG.info("file loader");
-    }
-
-    @Step("When I run the package explorer")
-    public void packageExplorer() {
-        LOG.info("run the package explorer");
-        classes = new PackageExplorer().getClasses(packageName);
-        //assertTrue(false);
-        //assertEquals("aaa", "aab");
-    }
-
-    @Step("When I scan for '(.*)' annotations")
-    public void scanForAnnotations(Class<? extends Annotation> annotation) {
-        LOG.info("annotation: '{}'", annotation);
-    }
-
-    @Step("Then it should find the classes '(.*)'")
-    public void findClasses(List<String> expectedClasses) {
-        LOG.info("classes: '{}'", expectedClasses);
-        int index = 0;
-        for (String aClass : expectedClasses) {
-            assertEquals(aClass, classes.get(index++).getSimpleName());
-        }
-        assertEquals(expectedClasses.size(), classes.size());
-    }
-
-    @Step("Then it should find the features '(.*)'")
-    public void findFeatures(String features) {
-        LOG.info("features: '{}'", features);
-    }
 
 
 }
