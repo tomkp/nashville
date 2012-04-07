@@ -16,9 +16,9 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.util.List;
 
-public class MainSuite extends TestSuite {
+public class NashvilleSuite extends TestSuite {
 
-    private static final Logger LOG = LoggerFactory.getLogger(MainSuite.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NashvilleSuite.class);
 
     @SuppressWarnings("unchecked")
 

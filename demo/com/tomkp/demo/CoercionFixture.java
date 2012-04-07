@@ -14,9 +14,9 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 @Fixture(lifespan = Lifespan.SCENARIO)
-public class DemoFixture {
+public class CoercionFixture {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DemoFixture.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CoercionFixture.class);
 
     private String packageName;
     private List<Class> classes;
