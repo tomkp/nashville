@@ -16,11 +16,12 @@ public class PackageExplorer {
 
 
     public List<Class> getClasses(String packageName) {
-        if (LOG.isInfoEnabled()) LOG.info("find classes in package '{}'", packageName);
+        LOG.info("find classes in package '{}'", packageName);
         List<Class> classes = new ArrayList<Class>();
         try {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             String path = packageName.replace('.', '/');
+            LOG.info("path: '{}'", path);
             Enumeration<URL> resources = classLoader.getResources(path);
             List<File> dirs = new ArrayList<File>();
             while (resources.hasMoreElements()) {
@@ -38,7 +39,7 @@ public class PackageExplorer {
 
 
     private List<Class> findClassesInDirectory(File directory, String packageName) throws ClassNotFoundException {
-        if (LOG.isDebugEnabled()) LOG.debug("scan directory '{}'", directory);
+        LOG.info("scan directory '{}'", directory);
         List<Class> classes = new ArrayList<Class>();
         File[] files = directory.listFiles();
         if (files != null) {

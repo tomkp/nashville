@@ -41,7 +41,7 @@ public class ClassesFixture {
 
     @Step("When I scan for '(.*)' annotations")
     public void scanForAnnotations(Class<? extends Annotation> annotation) {
-        LOG.info("annotation: '{}'", annotation);
+        LOG.info("scan for annotation: '{}'", annotation);
         classes = new PackageExplorer().getClasses(packageName);
         LOG.info("classes: '{}'", classes);
         annotatedClasses = new AnnotationScanner().scanClasses(classes, annotation);
