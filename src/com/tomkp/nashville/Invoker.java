@@ -39,7 +39,6 @@ public class Invoker {
             List<Object> convertedParameters = parametersConverter.convertParameters(parameterTypes, formats, methodParameters);
             LOG.info("converted convertedParameters: '{}'", convertedParameters);
 
-            //Method method = annotatedMethod.getMethod();
             try {
                 Object instance = instanceCache.getInstance(line, annotatedMethod.getClas());
                 System.out.println();
@@ -50,16 +49,9 @@ public class Invoker {
                     method.invoke(instance, convertedParameters.toArray());
                 }
             } catch (InvocationTargetException e) {
-
-                //e.printStackTrace();
-
                 if (e.getTargetException() instanceof AssertionError) {
                     throw (AssertionError) e.getTargetException();
-//                } else {
-//                    LOG.warn("unable to invoke '{}'", new Object[]{method}, e);
                 }
-
-                //throw new AssertionError("unable to invoke method '" + method + "' " + e.getMessage());
                 throw new AssertionError(e.getTargetException());
             } catch (Exception e) {
                 LOG.warn("unable to invoke '{}'", new Object[]{method}, e);

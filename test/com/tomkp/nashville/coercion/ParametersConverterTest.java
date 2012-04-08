@@ -43,4 +43,16 @@ public class ParametersConverterTest {
     }
 
 
+    @Test(expected = RuntimeException.class)
+    public void throwRuntimeExceptionWhenCoercionNotPossible() {
+        converter.convertParameters(new Class[]{Thread.class}, new String[]{}, Arrays.asList("Thread is not a coercable type"));
+    }
+
+
+    @Test(expected = RuntimeException.class)
+    public void throwRuntimeExceptionWhenCoercionFails() {
+        converter.convertParameters(new Class[]{Integer.class}, new String[]{}, Arrays.asList("this is not an Integere"));
+    }
+
+
 }
