@@ -16,23 +16,6 @@ public class AnnotationScanner {
     private static final Logger LOG = LoggerFactory.getLogger(AnnotationScanner.class);
 
 
-
-    public List<AnnotatedClasses> scanClasses(List<Class> classes, Class<? extends Annotation>... annotationClasses) {
-        List<AnnotatedClasses> annotatedClasses = new ArrayList<com.tomkp.nashville.scanning.AnnotatedClasses>();
-        for (Class clas : classes) {
-            for (Class<? extends Annotation> annotationClass : annotationClasses) {
-                if (clas.isAnnotationPresent(annotationClass)) {
-                    LOG.info("'{}' is annotated as a '{}'", clas, annotationClass.getSimpleName());
-                    @SuppressWarnings("unchecked")
-                    Annotation annotation = ((Class<? extends Annotation>) clas).getAnnotation(annotationClass);
-                    annotatedClasses.add(new AnnotatedClasses<Annotation>(annotation, clas));
-                }
-            }
-        }
-        return annotatedClasses;
-    }
-
-
     public List<AnnotatedMethod> scanMethods(Class clas, Class<? extends Annotation>... annotationClasses) {
         LOG.info("scan '{}' for annotations: '{}'", clas.getSimpleName(), annotationClasses);
         List<AnnotatedMethod> annotatedMethods = new ArrayList<AnnotatedMethod>();
@@ -46,9 +29,5 @@ public class AnnotationScanner {
         }
         return annotatedMethods;
     }
-
-
-
-
 
 }

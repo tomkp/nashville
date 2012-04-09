@@ -5,25 +5,25 @@ import junit.framework.TestCase;
 public class StepTest extends TestCase {
 
 
-    private Invoker invoker;
-    private Invokable invokable;
+    private StepInvoker stepInvoker;
+    private StepInvokable stepInvokable;
 
-    public StepTest(Invokable invokable, Invoker invoker) {
+    public StepTest(StepInvokable stepInvokable, StepInvoker stepInvoker) {
         super("test");
-        this.invokable = invokable;
-        this.invoker = invoker;
+        this.stepInvokable = stepInvokable;
+        this.stepInvoker = stepInvoker;
     }
 
 
     public void test() {
-        invoker.invoke(invokable);
+        stepInvoker.invoke(stepInvokable);
         assertTrue(true);
     }
 
 
     @Override
     public String getName() {
-        return invokable.getLine().getContents();
+        return stepInvokable.getLine().getContents();
     }
 
 

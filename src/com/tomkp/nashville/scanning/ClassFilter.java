@@ -1,4 +1,6 @@
 package com.tomkp.nashville.scanning;
 
-public class ClassFilter {
+public interface ClassFilter {
+
+    public boolean filter(Class clas);
 }

@@ -1,5 +1,6 @@
 package com.tomkp.nashville.scanning;
 
+import com.tomkp.nashville.annotations.Fixture;
 import com.tomkp.nashville.scanning.PackageExplorer;
 import org.junit.Test;
 
@@ -15,8 +16,19 @@ public class PackageExplorerTest {
     public void findsClassesInPackage() {
         List<Class> classes = new PackageExplorer().getClasses("com.tomkp.testdata.classes");
         assertEquals("TestClass3", classes.get(0).getSimpleName());
-        assertEquals("TestClass1", classes.get(1).getSimpleName());
-        assertEquals("TestClass2", classes.get(2).getSimpleName());
+        assertEquals("TestFixture3", classes.get(1).getSimpleName());
+        assertEquals("TestClass1", classes.get(2).getSimpleName());
+        assertEquals("TestClass2", classes.get(3).getSimpleName());
+        assertEquals("TestFixture1", classes.get(4).getSimpleName());
+        assertEquals("TestFixture2", classes.get(5).getSimpleName());
+    }
+
+    @Test
+    public void findsClassesInPackageWithFixtureFilter() {
+        List<Class> classes = new PackageExplorer().getClasses("com.tomkp.testdata.classes", new FixtureFilter());
+        assertEquals("TestFixture3", classes.get(0).getSimpleName());
+        assertEquals("TestFixture1", classes.get(1).getSimpleName());
+        assertEquals("TestFixture2", classes.get(2).getSimpleName());
     }
 
 

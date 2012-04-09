@@ -1,7 +1,7 @@
 package com.tomkp.testdata.classes;
 
-import com.tomkp.nashville.annotations.Step;
 import com.tomkp.nashville.annotations.Fixture;
+import com.tomkp.nashville.annotations.Step;
 
 @Fixture
 public class TestFixture2 {

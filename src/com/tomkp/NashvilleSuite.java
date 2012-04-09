@@ -1,13 +1,16 @@
 package com.tomkp;
 
 import com.tomkp.nashville.*;
-import com.tomkp.nashville.annotations.Fixture;
 import com.tomkp.nashville.annotations.Step;
 import com.tomkp.nashville.coercion.ParametersConverter;
 import com.tomkp.nashville.features.Feature;
 import com.tomkp.nashville.features.FeatureParser;
 import com.tomkp.nashville.features.Line;
 import com.tomkp.nashville.features.Scenario;
+import com.tomkp.nashville.step.StepInvokable;
+import com.tomkp.nashville.step.StepInvoker;
+import com.tomkp.nashville.step.StepMatcher;
+import com.tomkp.nashville.step.StepTest;
 import com.tomkp.nashville.utils.RecursiveFileLoader;
 import com.tomkp.nashville.scanning.*;
 import junit.framework.TestSuite;
@@ -30,17 +33,18 @@ public class NashvilleSuite extends TestSuite {
 
         StepMatcher stepMatcher = new StepMatcher();
 
-        List<Class> classes = new PackageExplorer().getClasses("com.tomkp.demo");
+        List<Class> fixtureClasses = new PackageExplorer().getClasses("com.tomkp.demo", new FixtureFilter());
+
         AnnotationScanner annotationScanner = new AnnotationScanner();
-        List<AnnotatedClasses> annotatedClasses = annotationScanner.scanClasses(classes, Fixture.class);
-        for (AnnotatedClasses annotatedClass : annotatedClasses) {
-            List<AnnotatedMethod> annotatedMethods = annotationScanner.scanMethods(annotatedClass.getClas(), Step.class);
-            for (AnnotatedMethod annotatedMethod : annotatedMethods) {
-                stepMatcher.store(annotatedMethod);
+        for (Class fixtureClass : fixtureClasses) {
+            List<AnnotatedMethod> annotatedSteps = annotationScanner.scanMethods(fixtureClass, Step.class);
+            for (AnnotatedMethod annotatedStep : annotatedSteps) {
+                stepMatcher.store(annotatedStep);
             }
         }
 
-        Invoker invoker = new Invoker(new ParametersConverter(), new FixtureInstanceCache());
+
+        StepInvoker stepInvoker = new StepInvoker(new ParametersConverter(), new FixtureInstanceCache());
 
         RecursiveFileLoader recursiveFileLoader = new RecursiveFileLoader("feature");
         File featuresDirectory = new File("features");
@@ -66,10 +70,10 @@ public class NashvilleSuite extends TestSuite {
                 for (Line line : lines) {
                     LOG.info("line: '{}'", line);
 
-                    Invokable invokable = stepMatcher.match(line);
-                    NashvilleTest nashvilleTest = new NashvilleTest(invokable, invoker);
-                    LOG.info("add new test: '{}'", nashvilleTest.getName());
-                    scenarioSuite.addTest(nashvilleTest);
+                    StepInvokable stepInvokable = stepMatcher.match(line);
+                    StepTest stepTest = new StepTest(stepInvokable, stepInvoker);
+                    LOG.info("add new test: '{}'", stepTest.getName());
+                    scenarioSuite.addTest(stepTest);
                 }
             }
         }

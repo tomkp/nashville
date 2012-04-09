@@ -16,6 +16,15 @@ public class PackageExplorer {
 
 
     public List<Class> getClasses(String packageName) {
+        return getClasses(packageName, new ClassFilter() {
+            @Override
+            public boolean filter(Class clas) {
+                return true;
+            }
+        });
+    }
+
+    public List<Class> getClasses(String packageName, ClassFilter classFilter) {
         LOG.info("find classes in package '{}'", packageName);
         List<Class> classes = new ArrayList<Class>();
         try {
@@ -29,7 +38,7 @@ public class PackageExplorer {
                 dirs.add(new File(resource.getFile()));
             }
             for (File directory : dirs) {
-                classes.addAll(findClassesInDirectory(directory, packageName));
+                classes.addAll(findClassesInDirectory(directory, packageName, classFilter));
             }
         } catch (Exception e) {
             throw new RuntimeException("unable to find classes in '" + packageName + "'", e);
@@ -38,18 +47,20 @@ public class PackageExplorer {
     }
 
 
-    private List<Class> findClassesInDirectory(File directory, String packageName) throws ClassNotFoundException {
+    private List<Class> findClassesInDirectory(File directory, String packageName, ClassFilter classFilter) throws ClassNotFoundException {
         LOG.info("scan directory '{}'", directory);
         List<Class> classes = new ArrayList<Class>();
         File[] files = directory.listFiles();
         if (files != null) {
             for (File file : files) {
                 if (file.isDirectory()) {
-                    classes.addAll(findClassesInDirectory(file, packageName + "." + file.getName()));
+                    classes.addAll(findClassesInDirectory(file, packageName + "." + file.getName(), classFilter));
                 } else if (file.getName().endsWith(".class")) {
                     String className = className(packageName, file);
                     Class<?> clas = Class.forName(className);
-                    classes.add(clas);
+                    if (classFilter.filter(clas)) {
+                        classes.add(clas);
+                    }
                 }
             }
         }

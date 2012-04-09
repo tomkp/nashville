@@ -25,7 +25,7 @@ public class StepMatcher {
 
 
 
-    public Invokable match(Line line) {
+    public StepInvokable match(Line line) {
         LOG.info("match line: '{}'", line);
         String contents = line.getContents();
         AnnotatedMethod<Step> annotatedMethod = null;
@@ -46,7 +46,7 @@ public class StepMatcher {
             }
         }
 
-        return new Invokable(annotatedMethod, methodParameters, line);
+        return new StepInvokable(annotatedMethod, methodParameters, line);
     }
 
 

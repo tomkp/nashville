@@ -3,8 +3,6 @@ package com.tomkp.demo;
 import com.tomkp.nashville.annotations.Fixture;
 import com.tomkp.nashville.annotations.Lifespan;
 import com.tomkp.nashville.annotations.Step;
-import com.tomkp.nashville.scanning.AnnotatedClasses;
-import com.tomkp.nashville.scanning.AnnotationScanner;
 import com.tomkp.nashville.scanning.PackageExplorer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +19,7 @@ public class ClassesFixture {
 
     private String packageName;
     private List<Class> classes;
-    private List<AnnotatedClasses> annotatedClasses;
+
 
 
     @Step("Given a package '(.*)'")
@@ -44,8 +42,8 @@ public class ClassesFixture {
         LOG.info("scan for annotation: '{}'", annotation);
         classes = new PackageExplorer().getClasses(packageName);
         LOG.info("classes: '{}'", classes);
-        annotatedClasses = new AnnotationScanner().scanClasses(classes, annotation);
-        LOG.info("annotated classes: '{}'", annotatedClasses);
+        //annotatedClasses = new AnnotationScanner().scanClasses(classes, annotation);
+        //LOG.info("annotated classes: '{}'", annotatedClasses);
     }
 
 
@@ -60,19 +58,6 @@ public class ClassesFixture {
     }
 
 
-    @Step("Then it should find the annotated classes '(.*)'")
-    public void findAnnotatedClasses(List<String> expectedClasses) {
-        LOG.info("compare expected classes '{}' and actual annotated classes '{}'", expectedClasses, annotatedClasses);
-        try {
-            int index = 0;
-            assertEquals(expectedClasses.size(), annotatedClasses.size());
-            for (String aClass : expectedClasses) {
-                assertEquals(aClass, annotatedClasses.get(index++).getClas().getSimpleName());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 
 }

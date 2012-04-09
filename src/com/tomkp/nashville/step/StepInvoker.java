@@ -27,11 +27,11 @@ public class StepInvoker {
     }
 
 
-    public void invoke(Invokable invokable) {
-        AnnotatedMethod<Step> annotatedMethod = invokable.getAnnotatedMethod();
-        Line line = invokable.getLine();
+    public void invoke(StepInvokable stepInvokable) {
+        AnnotatedMethod<Step> annotatedMethod = stepInvokable.getAnnotatedMethod();
+        Line line = stepInvokable.getLine();
         if (annotatedMethod != null) {
-            List<String> methodParameters = invokable.getMethodParameters();
+            List<String> methodParameters = stepInvokable.getMethodParameters();
             LOG.info("methodParameters: '{}'", methodParameters);
             Method method = annotatedMethod.getMethod();
             Step step = annotatedMethod.getAnnotation();
@@ -43,7 +43,7 @@ public class StepInvoker {
             try {
                 Object instance = instanceCache.getInstance(line, annotatedMethod.getClas());
                 System.out.println();
-                System.out.println(invokable.getLine());
+                System.out.println(stepInvokable.getLine());
                 if (convertedParameters.isEmpty()) {
                     method.invoke(instance);
                 } else {
