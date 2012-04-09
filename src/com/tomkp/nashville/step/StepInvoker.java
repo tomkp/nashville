@@ -1,5 +1,6 @@
-package com.tomkp.nashville;
+package com.tomkp.nashville.step;
 
+import com.tomkp.nashville.FixtureInstanceCache;
 import com.tomkp.nashville.annotations.Step;
 import com.tomkp.nashville.coercion.ParametersConverter;
 import com.tomkp.nashville.features.Line;
@@ -11,16 +12,16 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
-public class Invoker {
+public class StepInvoker {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Invoker.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StepInvoker.class);
 
 
     private ParametersConverter parametersConverter;
     private FixtureInstanceCache instanceCache;
 
 
-    public Invoker(ParametersConverter parametersConverter, FixtureInstanceCache instanceCache) {
+    public StepInvoker(ParametersConverter parametersConverter, FixtureInstanceCache instanceCache) {
         this.parametersConverter = parametersConverter;
         this.instanceCache = instanceCache;
     }

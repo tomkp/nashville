@@ -1,18 +1,14 @@
-package com.tomkp;
+package com.tomkp.nashville.step;
 
-import com.tomkp.nashville.Invokable;
-import com.tomkp.nashville.Invoker;
 import junit.framework.TestCase;
 
-import java.util.Date;
-
-public class NashvilleTest extends TestCase {
+public class StepTest extends TestCase {
 
 
     private Invoker invoker;
     private Invokable invokable;
 
-    public NashvilleTest(Invokable invokable, Invoker invoker) {
+    public StepTest(Invokable invokable, Invoker invoker) {
         super("test");
         this.invokable = invokable;
         this.invoker = invoker;
